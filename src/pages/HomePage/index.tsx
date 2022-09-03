@@ -15,7 +15,7 @@ export default function CreateOrigin() {
   const [destinationPoint, setDestinationPoint] = useState('')
 
   const { isLoaded } = useJsApiLoader ({
-    googleMapsApiKey: 'process.env.REACT_APP_GOOGLE_MAPS_API_KEY',
+    googleMapsApiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places']
   })
 
@@ -61,11 +61,11 @@ export default function CreateOrigin() {
   
   return (
     <>
-      <Box position='absolute' left={0} top={0} height='100vh' width='100vw' zIndex='-1' >
+      {/* <Box position='absolute' left={0} top={0} height='100vh' width='100vw' zIndex='-1' >
           <GoogleMap center={center} zoom={15} mapContainerStyle={{width: '100%', height: '100%'}}>
 
           </GoogleMap>
-      </Box>
+      </Box> */}
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box>
         </Box>
@@ -123,7 +123,7 @@ export default function CreateOrigin() {
         <TextField
           onChange={e => setStartPoint(e.target.value)}
           id="outlined-basic"
-          label="Ponto de partida" //tentei usar o Autocomplete assim como o Marker e o Googlemap mas e key tá dando erro, perdi no cansaço kkk  Ass: Alexandre  02/09 03:47
+          label="Ponto de partida"
           variant="outlined"
         />
       </Box>

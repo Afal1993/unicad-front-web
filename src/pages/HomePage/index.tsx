@@ -14,32 +14,28 @@ export default function CreateOrigin() {
   const [startPoint, setStartPoint] = useState('')
   const [destinationPoint, setDestinationPoint] = useState('')
 
-  const { isLoaded } = useJsApiLoader ({
-    googleMapsApiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: ['places']
-  })
+  // const { isLoaded } = useJsApiLoader ({
+  //   googleMapsApiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  //   libraries: ['places']
+  // })
 
 
-  if(!isLoaded) {
-    return '';
-  }
+  // if(!isLoaded) {
+  //   return '';
+  // }
 
-  const center: google.maps.LatLngLiteral = {lat: -7.255119, lng: -34.905382};
+  // const center: google.maps.LatLngLiteral = {lat: -7.255119, lng: -34.905382};
   
-  let map: google.maps.Map;
-  function initMap(): void {
-    map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center,
-      zoom: 8,
-    });
-  }
+  // let map: google.maps.Map;
+  // function initMap(): void {
+  //   map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+  //     center,
+  //     zoom: 8,
+  //   });
+  // }
 
   const createDelivery = (event: any) => {
     event.preventDefault()
-    console.log(name)
-    console.log(deliveryDate)
-    console.log(startPoint)
-    console.log(destinationPoint)
     const origin = {
       name,
       deliveryDate,
@@ -47,7 +43,7 @@ export default function CreateOrigin() {
       destinationPoint,
     }
     const res = axios
-      .post('http://localhost:3001/v1/locales', origin)
+      .post(import.meta.env.VITE_API_URL, origin)
       .then(res => {
         if (res.status == 201) {
           navigate('/origins', { replace: true })

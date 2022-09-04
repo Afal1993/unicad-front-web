@@ -1,40 +1,42 @@
-import { useState } from 'react'
+import { Button, Modal, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import { Button, Modal, Typography } from '@mui/material'
+import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api'
+import axios from 'axios'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-maps/api'
-import { number } from 'yup'
 
-export default function CreateOrigin() {
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  height: '70vh',
+  width: '70vw',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}
+
+export default function createDelivery() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [deliveryDate, setDeliveryDate] = useState('')
   const [startPoint, setStartPoint] = useState('')
   const [destinationPoint, setDestinationPoint] = useState('')
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  const [openDestinyModal, setOpenDestinyModal] = useState(false)
+  const handleOpenDestinyModal = () => setOpenDestinyModal(true)
+  const handleCloseDestinyModal = () => setOpenDestinyModal(false)
 
-  // const { isLoaded } = useJsApiLoader ({
-  //   googleMapsApiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries: ['places']
-  // })
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: 'AIzaSyAxYNef9EJ19kDazaUS5QOX0L91hGo4qA0',
+  })
 
-
-  // if(!isLoaded) {
-  //   return '';
-  // }
-
-  // const center: google.maps.LatLngLiteral = {lat: -7.255119, lng: -34.905382};
-  
-  // let map: google.maps.Map;
-  // function initMap(): void {
-  //   map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-  //     center,
-  //     zoom: 8,
-  //   });
-  // }
-
-  const createDelivery = (event: any) => {
+  const submitDelivery = (event: any) => {
     event.preventDefault()
     const origin = {
       name,
@@ -52,19 +54,25 @@ export default function CreateOrigin() {
       .catch(e => {
         console.log(e)
       })
-    return
   }
-  
+  if (!isLoaded) {
+    return ''
+  }
+
+  const center: google.maps.LatLngLiteral = { lat: -7.255119, lng: -34.905382 }
+
+  let map: google.maps.Map
+  function initMap(): void {
+    map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
+      center,
+      zoom: 8,
+    })
+  }
+
   return (
     <>
-      {/* <Box position='absolute' left={0} top={0} height='100vh' width='100vw' zIndex='-1' >
-          <GoogleMap center={center} zoom={15} mapContainerStyle={{width: '100%', height: '100%'}}>
-
-          </GoogleMap>
-      </Box> */}
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Box>
-        </Box>
+        <Box></Box>
         <Box display="flex">
           <Typography variant="h4">Cadastro de Entregas</Typography>
         </Box>
@@ -117,6 +125,7 @@ export default function CreateOrigin() {
         autoComplete="off"
       >
         <TextField
+          onClick={handleOpen}
           onChange={e => setStartPoint(e.target.value)}
           id="outlined-basic"
           label="Ponto de partida"
@@ -146,11 +155,65 @@ export default function CreateOrigin() {
         <Button
           style={{ width: '450px', marginTop: '20px' }}
           variant="contained"
-          onClick={(event) =>createDelivery(event)}
+          onClick={event => submitDelivery(event)}
         >
           Cadastrar
         </Button>
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Box
+              position="absolute"
+              left={0}
+              top={0}
+              height="100%"
+              width="100%"
+            >
+              <GoogleMap
+                center={center}
+                zoom={15}
+                mapContainerStyle={{ width: '100%', height: '100%' }}
+              ></GoogleMap>
+            </Box>
+          </Typography>
+        </Box>
+      </Modal>
+      <Modal
+        open={openDestinyModal}
+        onClose={handleCloseDestinyModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Box
+              position="absolute"
+              left={0}
+              top={0}
+              height="100%"
+              width="100%"
+            >
+              <GoogleMap
+                center={center}
+                zoom={15}
+                mapContainerStyle={{ width: '100%', height: '100%' }}
+              ></GoogleMap>
+            </Box>
+          </Typography>
+        </Box>
+      </Modal>
     </>
   )
 }

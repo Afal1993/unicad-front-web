@@ -1,55 +1,10 @@
 {
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/*.code-search": true
-  },
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "eslint.format.enable": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
-  },
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": false,
-    "strings": true
-  },
-  "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "breadcrumbs.enabled": true,
-  "emmet.syntaxProfiles": {
-    "javascript": "jsx"
-  },
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
-  "files.associations": {
-    ".sequelizerc": "javascript",
-    ".stylelintrc": "json",
-    ".prettierrc": "json",
-    "*.tsx": "typescriptreact",
-  },
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true
-  },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

@@ -195,9 +195,11 @@ const UpdateDelivery: any = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          ></Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
               position="absolute"
@@ -223,7 +225,7 @@ const UpdateDelivery: any = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Ponto de Destino
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box

@@ -47,7 +47,7 @@ const CreateDelivery: any = () => {
       destinationPoint,
     }
     const res = api
-      .post('/locales', delivery)
+      .post('v1/locales', delivery)
       .then(res => {
         if (res.status == 201) {
           navigate('/deliveries', { replace: true })

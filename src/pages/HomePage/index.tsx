@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Modal, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -19,7 +20,7 @@ const style = {
   p: 4,
 }
 
-export default function createDelivery() {
+const CreateDelivery: any = () => {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [deliveryDate, setDeliveryDate] = useState('')
@@ -145,6 +146,7 @@ export default function createDelivery() {
       >
         <TextField
           onChange={e => setDestinationPoint(e.target.value)}
+          onClick={handleOpenDestinyModal}
           name="destination"
           id="outlined-basic"
           label="Ponto de destino"
@@ -217,3 +219,4 @@ export default function createDelivery() {
     </>
   )
 }
+export default CreateDelivery

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 const ROUTES = [
   { label: 'Cadastrar', path: '/', icon: <HomeIcon /> },
-  { label: 'Entregas', path: '/origins', icon: <RouteIcon /> },
+  { label: 'Entregas', path: '/deliveries', icon: <RouteIcon /> },
 ]
 
 const Sidebar: React.FC = () => {

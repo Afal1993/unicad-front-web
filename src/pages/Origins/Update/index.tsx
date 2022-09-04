@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Modal, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import { api } from 'services/api'
+import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const style = {
   position: 'absolute' as const,
@@ -21,7 +22,7 @@ const style = {
   p: 4,
 }
 
-const CreateDelivery: any = () => {
+const UpdateDelivery: any = () => {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [deliveryDate, setDeliveryDate] = useState('')
@@ -33,6 +34,25 @@ const CreateDelivery: any = () => {
   const [openDestinyModal, setOpenDestinyModal] = useState(false)
   const handleOpenDestinyModal = () => setOpenDestinyModal(true)
   const handleCloseDestinyModal = () => setOpenDestinyModal(false)
+  let { id } = useParams()
+
+  useEffect(() => {
+    getDelivery()
+  }, [])
+
+  const getDelivery = () => {
+    return api
+      .get(`/locales/${id}`)
+      .then((res: any) => {
+        setName(res.data.name)
+        setDeliveryDate(res.data.deliveryDate)
+        setStartPoint(res.data.startPoint)
+        setDestinationPoint(res.data.destinationPoint)
+      })
+      .catch((e: any) => {
+        console.log(e.error)
+      })
+  }
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyAxYNef9EJ19kDazaUS5QOX0L91hGo4qA0',
@@ -47,11 +67,11 @@ const CreateDelivery: any = () => {
       destinationPoint,
     }
     const res = api
-      .post('/locales', delivery)
+      .put(`/locales/${id}`, delivery)
       .then(res => {
-        if (res.status == 201) {
+        if (res.status == 200) {
           navigate('/deliveries', { replace: true })
-          toast.success('Entrega cadastrada com sucesso!')
+          toast.success('Entrega atualizada com sucesso!')
         }
       })
       .catch(e => {
@@ -77,7 +97,7 @@ const CreateDelivery: any = () => {
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box></Box>
         <Box display="flex">
-          <Typography variant="h4">Cadastro de Entregas</Typography>
+          <Typography variant="h4">Editar entrega</Typography>
         </Box>
       </Box>
       <Box
@@ -96,6 +116,7 @@ const CreateDelivery: any = () => {
           id="outlined-basic"
           label="Nome do cliente"
           variant="outlined"
+          value={name}
         />
       </Box>
       <Box
@@ -114,6 +135,7 @@ const CreateDelivery: any = () => {
           id="outlined-basic"
           label="Data de entrega"
           variant="outlined"
+          value={deliveryDate}
         />
       </Box>
       <Box
@@ -133,6 +155,7 @@ const CreateDelivery: any = () => {
           id="outlined-basic"
           label="Ponto de partida"
           variant="outlined"
+          value={startPoint}
         />
       </Box>
       <Box
@@ -153,6 +176,7 @@ const CreateDelivery: any = () => {
           id="outlined-basic"
           label="Ponto de destino"
           variant="outlined"
+          value={destinationPoint}
         />
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -161,7 +185,7 @@ const CreateDelivery: any = () => {
           variant="contained"
           onClick={event => submitDelivery(event)}
         >
-          Cadastrar
+          Atualizar
         </Button>
       </Box>
       <Modal
@@ -221,4 +245,4 @@ const CreateDelivery: any = () => {
     </>
   )
 }
-export default CreateDelivery
+export default UpdateDelivery

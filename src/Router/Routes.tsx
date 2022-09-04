@@ -1,5 +1,7 @@
+import Edit from '@mui/icons-material/Edit'
 import CreateDelivery from 'pages/HomePage'
 import List from 'pages/Origins/List'
+import UpdateDelivery from 'pages/Origins/Update'
 import { Route, Routes as RoutesWrapper } from 'react-router-dom'
 
 export default function Routes() {
@@ -8,9 +10,9 @@ export default function Routes() {
       <Route path="/">
         <Route index element={<CreateDelivery />} />
         <Route path="*" element={<div>404 Not found</div>} />
-        <Route path="origins">
+        <Route path="deliveries">
+          <Route path=":id" element={<UpdateDelivery />} />
           <Route index element={<List />} />
-          <Route path="create" element={<div>Create</div>} />
         </Route>
       </Route>
     </RoutesWrapper>

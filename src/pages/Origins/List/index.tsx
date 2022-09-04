@@ -46,7 +46,7 @@ const List: React.FC = () => {
   }
 
   const editDelivery = (id: number) => {
-    navigate('/origins', { replace: true })
+    navigate(`/deliveries/${id}`, { replace: true })
   }
 
   return (

@@ -42,7 +42,7 @@ const UpdateDelivery: any = () => {
 
   const getDelivery = () => {
     return api
-      .get(`/locales/${id}`)
+      .get(`/v1/locales/${id}`)
       .then((res: any) => {
         setName(res.data.name)
         setDeliveryDate(res.data.deliveryDate)
@@ -67,7 +67,7 @@ const UpdateDelivery: any = () => {
       destinationPoint,
     }
     const res = api
-      .put(`/locales/${id}`, delivery)
+      .put(`/v1/locales/${id}`, delivery)
       .then(res => {
         if (res.status == 200) {
           navigate('/deliveries', { replace: true })

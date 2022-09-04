@@ -12,7 +12,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { useNavigate } from 'react-router-dom'
 import { api } from 'services/api'
 
@@ -26,7 +25,7 @@ const List: React.FC = () => {
 
   const getAllDeliveries = () => {
     return api
-      .get('http://localhost:3001/v1/locales')
+      .get('/v1/locales')
       .then((res: any) => {
         console.log(res.data)
         setLocales(res.data)
@@ -38,7 +37,7 @@ const List: React.FC = () => {
 
   const deleteDelivery = (id: number, refresh: any) => {
     return api
-      .delete(`http://localhost:3001/v1/locales/${id}`)
+      .delete(`/v1/locales/${id}`)
       .then((res: any) => {})
       .catch((e: any) => {
         console.log(e.error)
